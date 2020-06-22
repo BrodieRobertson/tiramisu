@@ -23,20 +23,19 @@ void output_notification(gchar *app_name, guint32 replaces_id, gchar *app_icon,
 		strcat(string, app_name);
 
 #ifdef RECEIVE_APP_ICON
-    sprintf(string, "%s%s%s%s", string, OUTPUT_DELIMITER, APP_ICON_NAME, app_icon);
+    sprintf(string+strlen(string), "%s%s%s", OUTPUT_DELIMITER, APP_ICON_NAME, app_icon);
 #endif
 
     /* TODO: actions */
     /* TODO: hints */
 
 #ifdef RECEIVE_REPLACES_ID
-    sprintf(string, "%s%s%s%lu", string, OUTPUT_DELIMITER, REPLACES_ID_NAME, replaces_id);
+    sprintf(string+strlen(string), "%s%s%u", OUTPUT_DELIMITER, REPLACES_ID_NAME, replaces_id);
 #endif
 
-    sprintf(string, "%s%s%s%d%s%s%s%s%s%s", string, OUTPUT_DELIMITER, TIMEOUT_NAME, timeout,
-				OUTPUT_DELIMITER, SUMMARY_NAME, summary, OUTPUT_DELIMITER, BODY_NAME, body);
+    printf("%1$s%2$s%3$s%4$d%2$s%5$s%6$s%2$s%7$s%8$s\n", string, OUTPUT_DELIMITER,
+		TIMEOUT_NAME, timeout, SUMMARY_NAME, summary, BODY_NAME, body);
 
-    printf("%s\n", string);
     fflush(stdout);
 
     free(string);
